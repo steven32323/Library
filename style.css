@@ -20,22 +20,29 @@ body {
     border-radius: 20px;
 }
 .card {
+    display: flex;
+    flex-direction: column;
     border: 1px solid grey;
-    height: 25vh;
+    height: 30vh;
     width: 25vh;
     padding: 10px;
     text-align: center;
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.2);
+    align-items: center;
+    gap: 1vh;
 }
 .read-btn {
+    width: fit-content;
     background-color: red;
     border-radius: 5px;
 }
 .read {
+    width: fit-content;
     background-color: green;
     border-radius: 5px;
+    color: white;
 }
 .addBook {
     height: 15vh;
@@ -70,11 +77,16 @@ form {
     border-radius: 10px;
     z-index: 6;
 }
-.btn-submit {
+.btn-submit{
     height: fit-content;
     width: fit-content;
     margin-left: 15vh;
     border-radius: 20px;
+}
+.remove {
+    background-color: red;
+    border-radius: 5px;
+    width: fit-content;
 }
 .hidden {
 display: none;

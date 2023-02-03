@@ -15,27 +15,7 @@ const closeModal = function () {
   form.classList.add('hidden');
 };
 
-let myLibrary = [
-  {
-    name: 'A Song of Ice and Fire',
-    author: 'G.R.R. Martin',
-    pageCount: 546,
-    read: false,
-  },
-  {
-    name: 'A Song of Summer',
-    author: 'G.R.R. Martin',
-    pageCount: 536,
-    read: true,
-  },
-  {
-    name: 'A Song Storms',
-    author: 'G.R.R. Martin',
-    pageCount: 509,
-    read: true,
-  },
-];
-
+let myLibrary = [];
 function Book(name, author, pageCount, read) {
   this.name = name;
   this.author = author;
@@ -69,7 +49,7 @@ function displayBook() {
         <button data_id="${i}" type="button" class="read-btn ${
       book.read === true ? ' read"> Read</button>' : '">Not read</button>'
     }
-        </div>`;
+        <button type="button" data_remove="${i}"  class="remove">Remove Book</button></div>`;
     container.insertAdjacentHTML('beforeend', html);
   });
   closeModal();
@@ -84,10 +64,22 @@ overlay.addEventListener('click', closeModal);
 displayBook();
 
 document.addEventListener('click', function (e) {
+  if (e.target.hasAttribute('data_remove')) {
+    let bookId = e.target.getAttribute('data_remove');
+    console.log(myLibrary[bookId]);
+    myLibrary.splice(bookId, 1);
+    displayBook();
+  }
   if (e.target.hasAttribute('data_id')) {
     // Get the value of the data attribute
     let bookId = e.target.getAttribute('data_id');
     let bookElement = document.querySelector(`[data_id="${bookId}"]`);
+    console.log(myLibrary[bookId]);
+    // if (e.target.) {
+    //   myLibrary[bookId].pop();
+    //   displayBook();
+    //   return;
+    // }
     bookElement.classList.toggle('read');
 
     //toggles read status of books
