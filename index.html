@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=poppins" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1026128bfe.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+</head>
+<body>
+    <div class="header">
+        <h1>library</h1>
+    </div>
+    <button type="button" class="addBook"> + New Book</button>
+    <div class="container">
+        <!-- <div class="card">
+            <p>"The Moaning of Life"</p>
+            <p>Karl Pilkington</p>
+            <p>250 Pages</p>
+            <button type="button" class="read-btn read">Not read</button>
+        </div> -->
+    </div>
+    <div>
+    <form class="modal hidden">
+        <h1>Add a New Book</h1>
+        <input type="text" class="bookName" placeholder=Title>
+        <input type="text" class="bookAuthor" placeholder="Author">
+        <input type="num" class="pageCount" placeholder="Page Count">
+        <label for="checkbox">Read?</label>
+            <select name="read" class="readBox">
+                <option value="true">Read</option> 
+                <option value="false">Not read</option> 
+            </select>
+        
+        <button type="submit" class="btn-submit">Add Book</button>
+    </form>
+</div>
+<div class="overlay hidden"></div>
+<footer class="footer">2023 Steven Smith   <a target="_blank" href="https://github.com/steven32323"><i class="fab fa-github"></i></a></footer>
+</body>
+</html>
