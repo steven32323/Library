@@ -16,44 +16,104 @@ const closeModal = function () {
 };
 
 let myLibrary = [];
-function Book(name, author, pageCount, read) {
-  this.name = name;
-  this.author = author;
-  this.pageCount = pageCount;
-  this.read = read;
-
-  function addBook() {
-    myLibrary.push({ name, author, pageCount, read });
+class Book {
+  constructor(bookName, author, pageCount, read) {
+    this.bookName = bookName;
+    this.author = author;
+    this.pageCount = pageCount;
+    this.read = read;
   }
-  addBook();
+  addBook() {
+    // console.log(this.bookName, this.author, this.pageCount, this.read);
+    myLibrary.push(this);
+    this.displayBook();
+    this.readBtn = document
+      .querySelectorAll('.read')
+      .forEach(btn => btn.addEventListener('click', e => this.readToggle(e)));
+    this.removeBtn = document
+      .querySelectorAll('.remove')
+      .forEach(btn => btn.addEventListener('click', e => this.readToggle(e)));
+    closeModal();
+  }
+  displayBook() {
+    container.innerHTML = '';
+    myLibrary.forEach((_, i) => {
+      let div = document.createElement('div');
+      div.className = 'card';
+
+      let bookNameP = document.createElement('p');
+      bookNameP.innerText = `"${this.bookName}"`;
+      div.appendChild(bookNameP);
+
+      let authorP = document.createElement('p');
+      authorP.innerText = this.author;
+      div.appendChild(authorP);
+
+      let pageCountP = document.createElement('p');
+      pageCountP.innerText = `${this.pageCount} Pages`;
+      div.appendChild(pageCountP);
+
+      let readBtn = document.createElement('button');
+      readBtn.setAttribute('data_id', i);
+      readBtn.type = 'button';
+      readBtn.className = `read-btn ${this.read === true ? ' read' : ''}`;
+      readBtn.innerText = this.read === true ? 'Read' : 'Not read';
+      div.appendChild(readBtn);
+
+      let removeBtn = document.createElement('button');
+      removeBtn.setAttribute('data_remove', i);
+      removeBtn.type = 'button';
+      removeBtn.className = 'remove';
+      removeBtn.innerText = 'Remove Book';
+      div.appendChild(removeBtn);
+
+      let html = div;
+      container.insertAdjacentElement('beforeend', html);
+    });
+  }
+  readToggle(e) {
+    if (e.target.hasAttribute('data_remove')) {
+      let bookId = e.target.getAttribute('data_remove');
+      console.log(myLibrary[bookId]);
+      myLibrary.splice(bookId, 1);
+      this.displayBook();
+    }
+    if (e.target.hasAttribute('data_id')) {
+      // Get the value of the data attribute
+      let bookId = e.target.getAttribute('data_id');
+      let bookElement = document.querySelector(`[data_id="${bookId}"]`);
+      console.log(myLibrary[bookId]);
+      bookElement.classList.toggle('read');
+
+      //toggles read status of books
+      myLibrary[bookId].read === true
+        ? (myLibrary[bookId].read = false)
+        : (myLibrary[bookId].read = true);
+      bookElement.innerHTML === `Not read`
+        ? (bookElement.innerHTML = `Read`)
+        : (bookElement.innerHTML = `Not read`);
+
+      // Use the value of the data attribute
+      // console.log(bookId);
+    }
+  }
 }
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  const name = nameInput.value;
+  const bookName = nameInput.value;
   const author = authorInput.value;
   const pageCount = pageCountInput.value;
   const read = JSON.parse(readInput.value);
 
-  const book = new Book(name, author, pageCount, read);
-  displayBook();
+  const book = new Book(bookName, author, pageCount, read);
+  book.addBook();
+  // remove = document.querySelector('.remove');
 });
 
-function displayBook() {
-  container.innerHTML = '';
-  myLibrary.forEach((book, i) => {
-    let html = `<div class="card">
-        <p>"${book.name}"</p>
-        <p>${book.author}</p>
-        <p>${book.pageCount} Pages</p>
-        <button data_id="${i}" type="button" class="read-btn ${
-      book.read === true ? ' read"> Read</button>' : '">Not read</button>'
-    }
-        <button type="button" data_remove="${i}"  class="remove">Remove Book</button></div>`;
-    container.insertAdjacentHTML('beforeend', html);
-  });
-  closeModal();
-}
+// function
+//   closeModal();
+// }
 
 addBook.addEventListener('click', function () {
   form.classList.remove('hidden');
@@ -61,36 +121,28 @@ addBook.addEventListener('click', function () {
 });
 
 overlay.addEventListener('click', closeModal);
-displayBook();
 
-document.addEventListener('click', function (e) {
-  if (e.target.hasAttribute('data_remove')) {
-    let bookId = e.target.getAttribute('data_remove');
-    console.log(myLibrary[bookId]);
-    myLibrary.splice(bookId, 1);
-    displayBook();
-  }
-  if (e.target.hasAttribute('data_id')) {
-    // Get the value of the data attribute
-    let bookId = e.target.getAttribute('data_id');
-    let bookElement = document.querySelector(`[data_id="${bookId}"]`);
-    console.log(myLibrary[bookId]);
-    // if (e.target.) {
-    //   myLibrary[bookId].pop();
-    //   displayBook();
-    //   return;
-    // }
-    bookElement.classList.toggle('read');
+// moveBook(e) {
+// if (e.target.hasAttribute('data_remove')) {
+//   let bookId = e.target.getAttribute('data_remove');
+//   console.log(myLibrary[bookId]);
+//   myLibrary.splice(bookId, 1);
+//   displayBook();
+// }
+// if (e.target.hasAttribute('data_id')) {
+//   // Get the value of the data attribute
+//   let bookId = e.target.getAttribute('data_id');
+//   let bookElement = document.querySelector(`[data_id="${bookId}"]`);
+//   console.log(myLibrary[bookId]);
+//   bookElement.classList.toggle('read');
 
-    //toggles read status of books
-    myLibrary[bookId].read === true
-      ? (myLibrary[bookId].read = false)
-      : (myLibrary[bookId].read = true);
-    bookElement.innerHTML === `Not read`
-      ? (bookElement.innerHTML = `Read`)
-      : (bookElement.innerHTML = `Not read`);
+//   //toggles read status of books
+//   myLibrary[bookId].read === true
+//     ? (myLibrary[bookId].read = false)
+//     : (myLibrary[bookId].read = true);
+//   bookElement.innerHTML === `Not read`
+//     ? (bookElement.innerHTML = `Read`)
+//     : (bookElement.innerHTML = `Not read`);
 
-    // Use the value of the data attribute
-    // console.log(bookId);
-  }
-});
+// Use the value of the data attribute
+// console.log(bookId);
