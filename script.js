@@ -121,28 +121,3 @@ addBook.addEventListener('click', function () {
 });
 
 overlay.addEventListener('click', closeModal);
-
-// moveBook(e) {
-// if (e.target.hasAttribute('data_remove')) {
-//   let bookId = e.target.getAttribute('data_remove');
-//   console.log(myLibrary[bookId]);
-//   myLibrary.splice(bookId, 1);
-//   displayBook();
-// }
-// if (e.target.hasAttribute('data_id')) {
-//   // Get the value of the data attribute
-//   let bookId = e.target.getAttribute('data_id');
-//   let bookElement = document.querySelector(`[data_id="${bookId}"]`);
-//   console.log(myLibrary[bookId]);
-//   bookElement.classList.toggle('read');
-
-//   //toggles read status of books
-//   myLibrary[bookId].read === true
-//     ? (myLibrary[bookId].read = false)
-//     : (myLibrary[bookId].read = true);
-//   bookElement.innerHTML === `Not read`
-//     ? (bookElement.innerHTML = `Read`)
-//     : (bookElement.innerHTML = `Not read`);
-
-// Use the value of the data attribute
-// console.log(bookId);

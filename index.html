@@ -30,7 +30,7 @@
         <h1>Add a New Book</h1>
         <input type="text" class="bookName" placeholder=Title required>
         <input type="text" class="bookAuthor" placeholder="Author" required>
-        <input type="num" class="pageCount" placeholder="Page Count" required>
+        <input type="number" class="pageCount" placeholder="Page Count" required pattern="[0-9]*" max=999>
         <label for="checkbox">Read?</label>
             <select name="read" class="readBox">
                 <option value="true">Read</option> 
